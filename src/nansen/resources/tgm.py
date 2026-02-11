@@ -45,7 +45,8 @@ class TGM(SyncAPIResource):
             date: Date range filter with ``"from"`` and ``"to"`` keys.
             filters: Field-level filters to narrow results.
             pagination: Pagination options (``page``, ``per_page``).
-            order_by: List of ordering directives (e.g. ``[{"field": "volume", "direction": "desc"}]``).
+            order_by: List of ordering directives
+                (e.g. ``[{"field": "volume", "direction": "desc"}]``).
         """
         return self._post_page(
             "/token-screener",
@@ -486,7 +487,8 @@ class AsyncTGM(AsyncAPIResource):
             date: Date range filter with ``"from"`` and ``"to"`` keys.
             filters: Field-level filters to narrow results.
             pagination: Pagination options (``page``, ``per_page``).
-            order_by: List of ordering directives (e.g. ``[{"field": "volume", "direction": "desc"}]``).
+            order_by: List of ordering directives
+                (e.g. ``[{"field": "volume", "direction": "desc"}]``).
         """
         return await self._post_page(
             "/token-screener",
