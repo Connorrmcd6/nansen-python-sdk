@@ -19,8 +19,11 @@ from nansen.types.profiler import (
 
 
 class Profiler(SyncAPIResource):
+    """Profiler resource for address and entity-level analytics."""
+
     @cached_property
     def address(self) -> Address:
+        """Sub-resource for address-specific endpoints."""
         return Address(self._client)
 
     def pnl_summary(
@@ -31,6 +34,16 @@ class Profiler(SyncAPIResource):
         address: str | NotGiven = NOT_GIVEN,
         entity_name: str | NotGiven = NOT_GIVEN,
     ) -> APIResponse[PnlSummaryResponse]:
+        """Get PnL summary for an address or entity.
+
+        Provide either ``address`` or ``entity_name`` to identify the target.
+
+        Args:
+            chain: Chain identifier (e.g. ``"ethereum"``).
+            date: Date range with ``"from"`` and ``"to"`` keys.
+            address: Wallet address to look up.
+            entity_name: Entity name to look up (alternative to ``address``).
+        """
         return self._post(
             "/profiler/address/pnl-summary",
             body={
@@ -53,6 +66,19 @@ class Profiler(SyncAPIResource):
         pagination: dict[str, Any] | NotGiven = NOT_GIVEN,
         order_by: list[dict[str, str]] | NotGiven = NOT_GIVEN,
     ) -> SyncPage[PnlItem]:
+        """Get detailed PnL data for an address or entity.
+
+        Provide either ``address`` or ``entity_name`` to identify the target.
+
+        Args:
+            chain: Chain identifier (e.g. ``"ethereum"``).
+            address: Wallet address to look up.
+            entity_name: Entity name to look up (alternative to ``address``).
+            date: Date range with ``"from"`` and ``"to"`` keys.
+            filters: Field-level filters to narrow results.
+            pagination: Pagination options (``page``, ``per_page``).
+            order_by: List of ordering directives.
+        """
         return self._post_page(
             "/profiler/address/pnl",
             body={
@@ -74,6 +100,13 @@ class Profiler(SyncAPIResource):
         filters: dict[str, Any] | NotGiven = NOT_GIVEN,
         order_by: list[dict[str, str]] | NotGiven = NOT_GIVEN,
     ) -> APIResponse[PerpPositionsResponse]:
+        """Get perpetual futures positions for an address.
+
+        Args:
+            address: Wallet address to look up.
+            filters: Field-level filters to narrow results.
+            order_by: List of ordering directives.
+        """
         return self._post(
             "/profiler/perp-positions",
             body={
@@ -93,6 +126,15 @@ class Profiler(SyncAPIResource):
         pagination: dict[str, Any] | NotGiven = NOT_GIVEN,
         order_by: list[dict[str, str]] | NotGiven = NOT_GIVEN,
     ) -> SyncPage[ProfilerPerpTradeItem]:
+        """Get perpetual futures trade history for an address.
+
+        Args:
+            address: Wallet address to look up.
+            date: Date range with ``"from"`` and ``"to"`` keys.
+            filters: Field-level filters to narrow results.
+            pagination: Pagination options (``page``, ``per_page``).
+            order_by: List of ordering directives.
+        """
         return self._post_page(
             "/profiler/perp-trades",
             body={
@@ -110,6 +152,11 @@ class Profiler(SyncAPIResource):
         *,
         search_query: str,
     ) -> APIResponse[list[EntitySearchItem]]:
+        """Search for entities by name.
+
+        Args:
+            search_query: Search term to match against entity names.
+        """
 
         from pydantic import TypeAdapter
 
@@ -133,6 +180,14 @@ class Profiler(SyncAPIResource):
         pagination: dict[str, Any] | NotGiven = NOT_GIVEN,
         order_by: list[dict[str, str]] | NotGiven = NOT_GIVEN,
     ) -> SyncPage[PerpLeaderboardItem]:
+        """Get the perpetual futures leaderboard.
+
+        Args:
+            date: Date range with ``"from"`` and ``"to"`` keys.
+            filters: Field-level filters to narrow results.
+            pagination: Pagination options (``page``, ``per_page``).
+            order_by: List of ordering directives.
+        """
         return self._post_page(
             "/perp-leaderboard",
             body={
@@ -146,8 +201,11 @@ class Profiler(SyncAPIResource):
 
 
 class AsyncProfiler(AsyncAPIResource):
+    """Profiler resource for address and entity-level analytics (async)."""
+
     @cached_property
     def address(self) -> AsyncAddress:
+        """Sub-resource for address-specific endpoints."""
         return AsyncAddress(self._client)
 
     async def pnl_summary(
@@ -158,6 +216,16 @@ class AsyncProfiler(AsyncAPIResource):
         address: str | NotGiven = NOT_GIVEN,
         entity_name: str | NotGiven = NOT_GIVEN,
     ) -> APIResponse[PnlSummaryResponse]:
+        """Get PnL summary for an address or entity.
+
+        Provide either ``address`` or ``entity_name`` to identify the target.
+
+        Args:
+            chain: Chain identifier (e.g. ``"ethereum"``).
+            date: Date range with ``"from"`` and ``"to"`` keys.
+            address: Wallet address to look up.
+            entity_name: Entity name to look up (alternative to ``address``).
+        """
         return await self._post(
             "/profiler/address/pnl-summary",
             body={
@@ -180,6 +248,19 @@ class AsyncProfiler(AsyncAPIResource):
         pagination: dict[str, Any] | NotGiven = NOT_GIVEN,
         order_by: list[dict[str, str]] | NotGiven = NOT_GIVEN,
     ) -> AsyncPage[PnlItem]:
+        """Get detailed PnL data for an address or entity.
+
+        Provide either ``address`` or ``entity_name`` to identify the target.
+
+        Args:
+            chain: Chain identifier (e.g. ``"ethereum"``).
+            address: Wallet address to look up.
+            entity_name: Entity name to look up (alternative to ``address``).
+            date: Date range with ``"from"`` and ``"to"`` keys.
+            filters: Field-level filters to narrow results.
+            pagination: Pagination options (``page``, ``per_page``).
+            order_by: List of ordering directives.
+        """
         return await self._post_page(
             "/profiler/address/pnl",
             body={
@@ -201,6 +282,13 @@ class AsyncProfiler(AsyncAPIResource):
         filters: dict[str, Any] | NotGiven = NOT_GIVEN,
         order_by: list[dict[str, str]] | NotGiven = NOT_GIVEN,
     ) -> APIResponse[PerpPositionsResponse]:
+        """Get perpetual futures positions for an address.
+
+        Args:
+            address: Wallet address to look up.
+            filters: Field-level filters to narrow results.
+            order_by: List of ordering directives.
+        """
         return await self._post(
             "/profiler/perp-positions",
             body={
@@ -220,6 +308,15 @@ class AsyncProfiler(AsyncAPIResource):
         pagination: dict[str, Any] | NotGiven = NOT_GIVEN,
         order_by: list[dict[str, str]] | NotGiven = NOT_GIVEN,
     ) -> AsyncPage[ProfilerPerpTradeItem]:
+        """Get perpetual futures trade history for an address.
+
+        Args:
+            address: Wallet address to look up.
+            date: Date range with ``"from"`` and ``"to"`` keys.
+            filters: Field-level filters to narrow results.
+            pagination: Pagination options (``page``, ``per_page``).
+            order_by: List of ordering directives.
+        """
         return await self._post_page(
             "/profiler/perp-trades",
             body={
@@ -237,6 +334,11 @@ class AsyncProfiler(AsyncAPIResource):
         *,
         search_query: str,
     ) -> APIResponse[list[EntitySearchItem]]:
+        """Search for entities by name.
+
+        Args:
+            search_query: Search term to match against entity names.
+        """
 
         from pydantic import TypeAdapter
 
@@ -260,6 +362,14 @@ class AsyncProfiler(AsyncAPIResource):
         pagination: dict[str, Any] | NotGiven = NOT_GIVEN,
         order_by: list[dict[str, str]] | NotGiven = NOT_GIVEN,
     ) -> AsyncPage[PerpLeaderboardItem]:
+        """Get the perpetual futures leaderboard.
+
+        Args:
+            date: Date range with ``"from"`` and ``"to"`` keys.
+            filters: Field-level filters to narrow results.
+            pagination: Pagination options (``page``, ``per_page``).
+            order_by: List of ordering directives.
+        """
         return await self._post_page(
             "/perp-leaderboard",
             body={

@@ -10,6 +10,8 @@ from nansen.types.points import PointsLeaderboardEntry
 
 
 class Points(SyncAPIResource):
+    """Points resource for the Nansen points leaderboard (no auth required)."""
+
     def leaderboard(
         self,
         *,
@@ -19,6 +21,9 @@ class Points(SyncAPIResource):
 
         This endpoint uses GET, requires no authentication,
         and hits a different base URL (app.nansen.ai).
+
+        Args:
+            tier: Filter by tier name.
         """
         params = {}
         if not isinstance(tier, _NotGiven):
@@ -36,12 +41,21 @@ class Points(SyncAPIResource):
 
 
 class AsyncPoints(AsyncAPIResource):
+    """Points resource for the Nansen points leaderboard (no auth required, async)."""
+
     async def leaderboard(
         self,
         *,
         tier: str | NotGiven = NOT_GIVEN,
     ) -> APIResponse[list[PointsLeaderboardEntry]]:
-        """Fetch the points leaderboard (async)."""
+        """Fetch the points leaderboard.
+
+        This endpoint uses GET, requires no authentication,
+        and hits a different base URL (app.nansen.ai).
+
+        Args:
+            tier: Filter by tier name.
+        """
         params = {}
         if not isinstance(tier, _NotGiven):
             params["tier"] = tier
