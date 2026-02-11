@@ -10,7 +10,27 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  changes:
+    runs-on: ubuntu-latest
+    outputs:
+      code: ${{ steps.filter.outputs.code }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          filters: |
+            code:
+              - "src/**"
+              - "tests/**"
+              - "pyproject.toml"
+              - "poetry.lock"
+              - ".github/workflows/**"
+
   lint:
+    needs: changes
+    if: needs.changes.outputs.code == 'true'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -35,6 +55,8 @@ jobs:
       - run: poetry run mypy src/
 
   test:
+    needs: changes
+    if: needs.changes.outputs.code == 'true'
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -58,3 +80,13 @@ jobs:
 
       - run: poetry install --no-interaction
       - run: poetry run pytest
+
+  ci:
+    runs-on: ubuntu-latest
+    if: always()
+    needs: [lint, test]
+    steps:
+      - run: |
+          if [[ "${{ needs.lint.result }}" == "failure" || "${{ needs.test.result }}" == "failure" ]]; then
+            exit 1
+          fi
