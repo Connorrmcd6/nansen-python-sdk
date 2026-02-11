@@ -16,6 +16,8 @@ from nansen.types.smart_money import (
 
 
 class SmartMoney(SyncAPIResource):
+    """Smart Money resource for tracking labeled smart money wallets."""
+
     def netflow(
         self,
         *,
@@ -24,6 +26,14 @@ class SmartMoney(SyncAPIResource):
         pagination: dict[str, Any] | NotGiven = NOT_GIVEN,
         order_by: list[dict[str, str]] | NotGiven = NOT_GIVEN,
     ) -> SyncPage[SmartMoneyNetflowItem]:
+        """Get smart money netflow data across chains.
+
+        Args:
+            chains: List of chain identifiers (e.g. ``["ethereum"]``).
+            filters: Field-level filters to narrow results.
+            pagination: Pagination options (``page``, ``per_page``).
+            order_by: List of ordering directives.
+        """
         return self._post_page(
             "/smart-money/netflow",
             body={
@@ -43,6 +53,14 @@ class SmartMoney(SyncAPIResource):
         pagination: dict[str, Any] | NotGiven = NOT_GIVEN,
         order_by: list[dict[str, str]] | NotGiven = NOT_GIVEN,
     ) -> SyncPage[SmartMoneyDexTradeItem]:
+        """Get smart money DEX trades across chains.
+
+        Args:
+            chains: List of chain identifiers (e.g. ``["ethereum"]``).
+            filters: Field-level filters to narrow results.
+            pagination: Pagination options (``page``, ``per_page``).
+            order_by: List of ordering directives.
+        """
         return self._post_page(
             "/smart-money/dex-trades",
             body={
@@ -62,6 +80,14 @@ class SmartMoney(SyncAPIResource):
         pagination: dict[str, Any] | NotGiven = NOT_GIVEN,
         order_by: list[dict[str, str]] | NotGiven = NOT_GIVEN,
     ) -> SyncPage[SmartMoneyPerpTradeItem]:
+        """Get smart money perpetual futures trades.
+
+        Args:
+            filters: Field-level filters to narrow results.
+            only_new_positions: If ``True``, only return trades that open new positions.
+            pagination: Pagination options (``page``, ``per_page``).
+            order_by: List of ordering directives.
+        """
         return self._post_page(
             "/smart-money/perp-trades",
             body={
@@ -80,6 +106,13 @@ class SmartMoney(SyncAPIResource):
         pagination: dict[str, Any] | NotGiven = NOT_GIVEN,
         order_by: list[dict[str, str]] | NotGiven = NOT_GIVEN,
     ) -> SyncPage[SmartMoneyDcaItem]:
+        """Get smart money DCA orders.
+
+        Args:
+            filters: Field-level filters to narrow results.
+            pagination: Pagination options (``page``, ``per_page``).
+            order_by: List of ordering directives.
+        """
         return self._post_page(
             "/smart-money/dcas",
             body={
@@ -98,6 +131,14 @@ class SmartMoney(SyncAPIResource):
         pagination: dict[str, Any] | NotGiven = NOT_GIVEN,
         order_by: list[dict[str, str]] | NotGiven = NOT_GIVEN,
     ) -> SyncPage[SmartMoneyHoldingItem]:
+        """Get current smart money holdings across chains.
+
+        Args:
+            chains: List of chain identifiers (e.g. ``["ethereum"]``).
+            filters: Field-level filters to narrow results.
+            pagination: Pagination options (``page``, ``per_page``).
+            order_by: List of ordering directives.
+        """
         return self._post_page(
             "/smart-money/holdings",
             body={
@@ -118,6 +159,15 @@ class SmartMoney(SyncAPIResource):
         pagination: dict[str, Any] | NotGiven = NOT_GIVEN,
         order_by: list[dict[str, str]] | NotGiven = NOT_GIVEN,
     ) -> SyncPage[SmartMoneyHistoricalHoldingItem]:
+        """Get historical smart money holdings across chains.
+
+        Args:
+            date_range: Date range with ``"from"`` and ``"to"`` keys.
+            chains: List of chain identifiers (e.g. ``["ethereum"]``).
+            filters: Field-level filters to narrow results.
+            pagination: Pagination options (``page``, ``per_page``).
+            order_by: List of ordering directives.
+        """
         return self._post_page(
             "/smart-money/historical-holdings",
             body={
@@ -132,6 +182,8 @@ class SmartMoney(SyncAPIResource):
 
 
 class AsyncSmartMoney(AsyncAPIResource):
+    """Smart Money resource for tracking labeled smart money wallets (async)."""
+
     async def netflow(
         self,
         *,
@@ -140,6 +192,14 @@ class AsyncSmartMoney(AsyncAPIResource):
         pagination: dict[str, Any] | NotGiven = NOT_GIVEN,
         order_by: list[dict[str, str]] | NotGiven = NOT_GIVEN,
     ) -> AsyncPage[SmartMoneyNetflowItem]:
+        """Get smart money netflow data across chains.
+
+        Args:
+            chains: List of chain identifiers (e.g. ``["ethereum"]``).
+            filters: Field-level filters to narrow results.
+            pagination: Pagination options (``page``, ``per_page``).
+            order_by: List of ordering directives.
+        """
         return await self._post_page(
             "/smart-money/netflow",
             body={
@@ -159,6 +219,14 @@ class AsyncSmartMoney(AsyncAPIResource):
         pagination: dict[str, Any] | NotGiven = NOT_GIVEN,
         order_by: list[dict[str, str]] | NotGiven = NOT_GIVEN,
     ) -> AsyncPage[SmartMoneyDexTradeItem]:
+        """Get smart money DEX trades across chains.
+
+        Args:
+            chains: List of chain identifiers (e.g. ``["ethereum"]``).
+            filters: Field-level filters to narrow results.
+            pagination: Pagination options (``page``, ``per_page``).
+            order_by: List of ordering directives.
+        """
         return await self._post_page(
             "/smart-money/dex-trades",
             body={
@@ -178,6 +246,14 @@ class AsyncSmartMoney(AsyncAPIResource):
         pagination: dict[str, Any] | NotGiven = NOT_GIVEN,
         order_by: list[dict[str, str]] | NotGiven = NOT_GIVEN,
     ) -> AsyncPage[SmartMoneyPerpTradeItem]:
+        """Get smart money perpetual futures trades.
+
+        Args:
+            filters: Field-level filters to narrow results.
+            only_new_positions: If ``True``, only return trades that open new positions.
+            pagination: Pagination options (``page``, ``per_page``).
+            order_by: List of ordering directives.
+        """
         return await self._post_page(
             "/smart-money/perp-trades",
             body={
@@ -196,6 +272,13 @@ class AsyncSmartMoney(AsyncAPIResource):
         pagination: dict[str, Any] | NotGiven = NOT_GIVEN,
         order_by: list[dict[str, str]] | NotGiven = NOT_GIVEN,
     ) -> AsyncPage[SmartMoneyDcaItem]:
+        """Get smart money DCA orders.
+
+        Args:
+            filters: Field-level filters to narrow results.
+            pagination: Pagination options (``page``, ``per_page``).
+            order_by: List of ordering directives.
+        """
         return await self._post_page(
             "/smart-money/dcas",
             body={
@@ -214,6 +297,14 @@ class AsyncSmartMoney(AsyncAPIResource):
         pagination: dict[str, Any] | NotGiven = NOT_GIVEN,
         order_by: list[dict[str, str]] | NotGiven = NOT_GIVEN,
     ) -> AsyncPage[SmartMoneyHoldingItem]:
+        """Get current smart money holdings across chains.
+
+        Args:
+            chains: List of chain identifiers (e.g. ``["ethereum"]``).
+            filters: Field-level filters to narrow results.
+            pagination: Pagination options (``page``, ``per_page``).
+            order_by: List of ordering directives.
+        """
         return await self._post_page(
             "/smart-money/holdings",
             body={
@@ -234,6 +325,15 @@ class AsyncSmartMoney(AsyncAPIResource):
         pagination: dict[str, Any] | NotGiven = NOT_GIVEN,
         order_by: list[dict[str, str]] | NotGiven = NOT_GIVEN,
     ) -> AsyncPage[SmartMoneyHistoricalHoldingItem]:
+        """Get historical smart money holdings across chains.
+
+        Args:
+            date_range: Date range with ``"from"`` and ``"to"`` keys.
+            chains: List of chain identifiers (e.g. ``["ethereum"]``).
+            filters: Field-level filters to narrow results.
+            pagination: Pagination options (``page``, ``per_page``).
+            order_by: List of ordering directives.
+        """
         return await self._post_page(
             "/smart-money/historical-holdings",
             body={

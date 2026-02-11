@@ -17,6 +17,8 @@ from nansen.types.profiler import (
 
 
 class Address(SyncAPIResource):
+    """Address sub-resource for wallet-level profiler endpoints."""
+
     def current_balance(
         self,
         *,
@@ -28,6 +30,17 @@ class Address(SyncAPIResource):
         pagination: dict[str, Any] | NotGiven = NOT_GIVEN,
         order_by: list[dict[str, str]] | NotGiven = NOT_GIVEN,
     ) -> SyncPage[ProfilerBalanceItem]:
+        """Get current token balances for an address or entity.
+
+        Args:
+            chain: Chain identifier (e.g. ``"ethereum"``).
+            address: Wallet address to look up.
+            entity_name: Entity name to look up (alternative to ``address``).
+            hide_spam_token: If ``True``, exclude tokens flagged as spam.
+            filters: Field-level filters to narrow results.
+            pagination: Pagination options (``page``, ``per_page``).
+            order_by: List of ordering directives.
+        """
         return self._post_page(
             "/profiler/address/current-balance",
             body={
@@ -53,6 +66,17 @@ class Address(SyncAPIResource):
         pagination: dict[str, Any] | NotGiven = NOT_GIVEN,
         order_by: list[dict[str, str]] | NotGiven = NOT_GIVEN,
     ) -> SyncPage[HistoricalBalanceItem]:
+        """Get historical token balances for an address or entity.
+
+        Args:
+            chain: Chain identifier (e.g. ``"ethereum"``).
+            date: Date range with ``"from"`` and ``"to"`` keys.
+            address: Wallet address to look up.
+            entity_name: Entity name to look up (alternative to ``address``).
+            filters: Field-level filters to narrow results.
+            pagination: Pagination options (``page``, ``per_page``).
+            order_by: List of ordering directives.
+        """
         return self._post_page(
             "/profiler/address/historical-balances",
             body={
@@ -78,6 +102,17 @@ class Address(SyncAPIResource):
         pagination: dict[str, Any] | NotGiven = NOT_GIVEN,
         order_by: list[dict[str, str]] | NotGiven = NOT_GIVEN,
     ) -> SyncPage[TransactionItem]:
+        """Get transaction history for an address.
+
+        Args:
+            address: Wallet address to look up.
+            chain: Chain identifier (e.g. ``"ethereum"``).
+            date: Date range with ``"from"`` and ``"to"`` keys.
+            hide_spam_token: If ``True``, exclude transactions involving spam tokens.
+            filters: Field-level filters to narrow results.
+            pagination: Pagination options (``page``, ``per_page``).
+            order_by: List of ordering directives.
+        """
         return self._post_page(
             "/profiler/address/transactions",
             body={
@@ -105,6 +140,19 @@ class Address(SyncAPIResource):
         pagination: dict[str, Any] | NotGiven = NOT_GIVEN,
         order_by: list[dict[str, str]] | NotGiven = NOT_GIVEN,
     ) -> SyncPage[CounterpartyItem]:
+        """Get counterparty data for an address or entity.
+
+        Args:
+            chain: Chain identifier (e.g. ``"ethereum"``).
+            date: Date range with ``"from"`` and ``"to"`` keys.
+            address: Wallet address to look up.
+            entity_name: Entity name to look up (alternative to ``address``).
+            source_input: Source input type for the query.
+            group_by: Field to group counterparties by.
+            filters: Field-level filters to narrow results.
+            pagination: Pagination options (``page``, ``per_page``).
+            order_by: List of ordering directives.
+        """
         return self._post_page(
             "/profiler/address/counterparties",
             body={
@@ -129,6 +177,14 @@ class Address(SyncAPIResource):
         pagination: dict[str, Any] | NotGiven = NOT_GIVEN,
         order_by: list[dict[str, str]] | NotGiven = NOT_GIVEN,
     ) -> SyncPage[RelatedWalletItem]:
+        """Get wallets related to an address.
+
+        Args:
+            address: Wallet address to look up.
+            chain: Chain identifier (e.g. ``"ethereum"``).
+            pagination: Pagination options (``page``, ``per_page``).
+            order_by: List of ordering directives.
+        """
         return self._post_page(
             "/profiler/address/related-wallets",
             body={
@@ -149,10 +205,17 @@ class Address(SyncAPIResource):
         label: str | NotGiven = NOT_GIVEN,
         pagination: dict[str, Any] | NotGiven = NOT_GIVEN,
     ) -> APIResponse[list[AddressLabelItem]]:
-        """Fetch address labels (beta endpoint).
+        """Get labels for an address (beta endpoint).
 
-        Note: This endpoint uses ``/api/beta/`` and has a different
+        This endpoint uses the ``/api/beta/`` base path and has a different
         request structure than standard v1 endpoints.
+
+        Args:
+            chain: Chain identifier (e.g. ``"ethereum"``).
+            address: Wallet address to look up.
+            entity: Filter by entity name.
+            label: Filter by label name.
+            pagination: Pagination options (``page``, ``per_page``).
         """
 
         parameters: dict[str, Any] = {"chain": chain, "address": address}
@@ -182,6 +245,8 @@ class Address(SyncAPIResource):
 
 
 class AsyncAddress(AsyncAPIResource):
+    """Address sub-resource for wallet-level profiler endpoints (async)."""
+
     async def current_balance(
         self,
         *,
@@ -193,6 +258,17 @@ class AsyncAddress(AsyncAPIResource):
         pagination: dict[str, Any] | NotGiven = NOT_GIVEN,
         order_by: list[dict[str, str]] | NotGiven = NOT_GIVEN,
     ) -> AsyncPage[ProfilerBalanceItem]:
+        """Get current token balances for an address or entity.
+
+        Args:
+            chain: Chain identifier (e.g. ``"ethereum"``).
+            address: Wallet address to look up.
+            entity_name: Entity name to look up (alternative to ``address``).
+            hide_spam_token: If ``True``, exclude tokens flagged as spam.
+            filters: Field-level filters to narrow results.
+            pagination: Pagination options (``page``, ``per_page``).
+            order_by: List of ordering directives.
+        """
         return await self._post_page(
             "/profiler/address/current-balance",
             body={
@@ -218,6 +294,17 @@ class AsyncAddress(AsyncAPIResource):
         pagination: dict[str, Any] | NotGiven = NOT_GIVEN,
         order_by: list[dict[str, str]] | NotGiven = NOT_GIVEN,
     ) -> AsyncPage[HistoricalBalanceItem]:
+        """Get historical token balances for an address or entity.
+
+        Args:
+            chain: Chain identifier (e.g. ``"ethereum"``).
+            date: Date range with ``"from"`` and ``"to"`` keys.
+            address: Wallet address to look up.
+            entity_name: Entity name to look up (alternative to ``address``).
+            filters: Field-level filters to narrow results.
+            pagination: Pagination options (``page``, ``per_page``).
+            order_by: List of ordering directives.
+        """
         return await self._post_page(
             "/profiler/address/historical-balances",
             body={
@@ -243,6 +330,17 @@ class AsyncAddress(AsyncAPIResource):
         pagination: dict[str, Any] | NotGiven = NOT_GIVEN,
         order_by: list[dict[str, str]] | NotGiven = NOT_GIVEN,
     ) -> AsyncPage[TransactionItem]:
+        """Get transaction history for an address.
+
+        Args:
+            address: Wallet address to look up.
+            chain: Chain identifier (e.g. ``"ethereum"``).
+            date: Date range with ``"from"`` and ``"to"`` keys.
+            hide_spam_token: If ``True``, exclude transactions involving spam tokens.
+            filters: Field-level filters to narrow results.
+            pagination: Pagination options (``page``, ``per_page``).
+            order_by: List of ordering directives.
+        """
         return await self._post_page(
             "/profiler/address/transactions",
             body={
@@ -270,6 +368,19 @@ class AsyncAddress(AsyncAPIResource):
         pagination: dict[str, Any] | NotGiven = NOT_GIVEN,
         order_by: list[dict[str, str]] | NotGiven = NOT_GIVEN,
     ) -> AsyncPage[CounterpartyItem]:
+        """Get counterparty data for an address or entity.
+
+        Args:
+            chain: Chain identifier (e.g. ``"ethereum"``).
+            date: Date range with ``"from"`` and ``"to"`` keys.
+            address: Wallet address to look up.
+            entity_name: Entity name to look up (alternative to ``address``).
+            source_input: Source input type for the query.
+            group_by: Field to group counterparties by.
+            filters: Field-level filters to narrow results.
+            pagination: Pagination options (``page``, ``per_page``).
+            order_by: List of ordering directives.
+        """
         return await self._post_page(
             "/profiler/address/counterparties",
             body={
@@ -294,6 +405,14 @@ class AsyncAddress(AsyncAPIResource):
         pagination: dict[str, Any] | NotGiven = NOT_GIVEN,
         order_by: list[dict[str, str]] | NotGiven = NOT_GIVEN,
     ) -> AsyncPage[RelatedWalletItem]:
+        """Get wallets related to an address.
+
+        Args:
+            address: Wallet address to look up.
+            chain: Chain identifier (e.g. ``"ethereum"``).
+            pagination: Pagination options (``page``, ``per_page``).
+            order_by: List of ordering directives.
+        """
         return await self._post_page(
             "/profiler/address/related-wallets",
             body={
@@ -314,6 +433,18 @@ class AsyncAddress(AsyncAPIResource):
         label: str | NotGiven = NOT_GIVEN,
         pagination: dict[str, Any] | NotGiven = NOT_GIVEN,
     ) -> APIResponse[list[AddressLabelItem]]:
+        """Get labels for an address (beta endpoint).
+
+        This endpoint uses the ``/api/beta/`` base path and has a different
+        request structure than standard v1 endpoints.
+
+        Args:
+            chain: Chain identifier (e.g. ``"ethereum"``).
+            address: Wallet address to look up.
+            entity: Filter by entity name.
+            label: Filter by label name.
+            pagination: Pagination options (``page``, ``per_page``).
+        """
 
         parameters: dict[str, Any] = {"chain": chain, "address": address}
         if not isinstance(entity, NotGiven):

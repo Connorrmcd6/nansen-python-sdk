@@ -25,6 +25,8 @@ from nansen.types.tgm import (
 
 
 class TGM(SyncAPIResource):
+    """Token God Mode resource for token-level analytics."""
+
     def token_screener(
         self,
         *,
@@ -35,6 +37,17 @@ class TGM(SyncAPIResource):
         pagination: dict[str, Any] | NotGiven = NOT_GIVEN,
         order_by: list[dict[str, str]] | NotGiven = NOT_GIVEN,
     ) -> SyncPage[TokenScreenerItem]:
+        """Screen tokens across one or more chains.
+
+        Args:
+            chains: List of chain identifiers to screen (e.g. ``["ethereum"]``).
+            timeframe: Timeframe for the screener data (e.g. ``"24h"``).
+            date: Date range filter with ``"from"`` and ``"to"`` keys.
+            filters: Field-level filters to narrow results.
+            pagination: Pagination options (``page``, ``per_page``).
+            order_by: List of ordering directives
+                (e.g. ``[{"field": "volume", "direction": "desc"}]``).
+        """
         return self._post_page(
             "/token-screener",
             body={
@@ -55,6 +68,13 @@ class TGM(SyncAPIResource):
         token_address: str,
         timeframe: str,
     ) -> APIResponse[TokenInformationResponse]:
+        """Get detailed information for a specific token.
+
+        Args:
+            chain: Chain identifier (e.g. ``"ethereum"``).
+            token_address: Contract address of the token.
+            timeframe: Timeframe for the data (e.g. ``"24h"``).
+        """
         return self._post(
             "/tgm/token-information",
             body={
@@ -73,6 +93,16 @@ class TGM(SyncAPIResource):
         timeframe: str | NotGiven = NOT_GIVEN,
         filters: dict[str, Any] | NotGiven = NOT_GIVEN,
     ) -> SyncPage[FlowIntelItem]:
+        """Get flow intelligence data for a token.
+
+        Shows smart money and notable wallet flows into and out of a token.
+
+        Args:
+            chain: Chain identifier (e.g. ``"ethereum"``).
+            token_address: Contract address of the token.
+            timeframe: Timeframe for the data (e.g. ``"24h"``).
+            filters: Field-level filters to narrow results.
+        """
         return self._post_page(
             "/tgm/flow-intelligence",
             body={
@@ -95,6 +125,17 @@ class TGM(SyncAPIResource):
         pagination: dict[str, Any] | NotGiven = NOT_GIVEN,
         order_by: list[dict[str, str]] | NotGiven = NOT_GIVEN,
     ) -> SyncPage[HolderItem]:
+        """Get holder data for a token.
+
+        Args:
+            chain: Chain identifier (e.g. ``"ethereum"``).
+            token_address: Contract address of the token.
+            label_type: Filter holders by label type.
+            aggregate_by_entity: If ``True``, aggregate holdings by entity.
+            filters: Field-level filters to narrow results.
+            pagination: Pagination options (``page``, ``per_page``).
+            order_by: List of ordering directives.
+        """
         return self._post_page(
             "/tgm/holders",
             body={
@@ -120,6 +161,17 @@ class TGM(SyncAPIResource):
         pagination: dict[str, Any] | NotGiven = NOT_GIVEN,
         order_by: list[dict[str, str]] | NotGiven = NOT_GIVEN,
     ) -> SyncPage[FlowItem]:
+        """Get token flow data within a date range.
+
+        Args:
+            chain: Chain identifier (e.g. ``"ethereum"``).
+            token_address: Contract address of the token.
+            date: Date range with ``"from"`` and ``"to"`` keys.
+            label: Filter flows by wallet label.
+            filters: Field-level filters to narrow results.
+            pagination: Pagination options (``page``, ``per_page``).
+            order_by: List of ordering directives.
+        """
         return self._post_page(
             "/tgm/flows",
             body={
@@ -145,6 +197,17 @@ class TGM(SyncAPIResource):
         pagination: dict[str, Any] | NotGiven = NOT_GIVEN,
         order_by: list[dict[str, str]] | NotGiven = NOT_GIVEN,
     ) -> SyncPage[WhoBoughtSoldItem]:
+        """Get buy/sell activity for a token.
+
+        Args:
+            chain: Chain identifier (e.g. ``"ethereum"``).
+            token_address: Contract address of the token.
+            date: Date range with ``"from"`` and ``"to"`` keys.
+            buy_or_sell: Filter by ``"buy"`` or ``"sell"`` side.
+            filters: Field-level filters to narrow results.
+            pagination: Pagination options (``page``, ``per_page``).
+            order_by: List of ordering directives.
+        """
         return self._post_page(
             "/tgm/who-bought-sold",
             body={
@@ -170,6 +233,17 @@ class TGM(SyncAPIResource):
         pagination: dict[str, Any] | NotGiven = NOT_GIVEN,
         order_by: list[dict[str, str]] | NotGiven = NOT_GIVEN,
     ) -> SyncPage[TgmDexTradeItem]:
+        """Get DEX trade history for a token.
+
+        Args:
+            chain: Chain identifier (e.g. ``"ethereum"``).
+            token_address: Contract address of the token.
+            date: Date range with ``"from"`` and ``"to"`` keys.
+            only_smart_money: If ``True``, only return trades from smart money wallets.
+            filters: Field-level filters to narrow results.
+            pagination: Pagination options (``page``, ``per_page``).
+            order_by: List of ordering directives.
+        """
         return self._post_page(
             "/tgm/dex-trades",
             body={
@@ -194,6 +268,16 @@ class TGM(SyncAPIResource):
         pagination: dict[str, Any] | NotGiven = NOT_GIVEN,
         order_by: list[dict[str, str]] | NotGiven = NOT_GIVEN,
     ) -> SyncPage[TransferItem]:
+        """Get transfer history for a token.
+
+        Args:
+            chain: Chain identifier (e.g. ``"ethereum"``).
+            token_address: Contract address of the token.
+            date: Date range with ``"from"`` and ``"to"`` keys.
+            filters: Field-level filters to narrow results.
+            pagination: Pagination options (``page``, ``per_page``).
+            order_by: List of ordering directives.
+        """
         return self._post_page(
             "/tgm/transfers",
             body={
@@ -214,6 +298,13 @@ class TGM(SyncAPIResource):
         filters: dict[str, Any] | NotGiven = NOT_GIVEN,
         pagination: dict[str, Any] | NotGiven = NOT_GIVEN,
     ) -> SyncPage[TgmDcaItem]:
+        """Get Jupiter DCA orders for a token (Solana only).
+
+        Args:
+            token_address: Token mint address.
+            filters: Field-level filters to narrow results.
+            pagination: Pagination options (``page``, ``per_page``).
+        """
         return self._post_page(
             "/tgm/jup-dca",
             body={
@@ -234,6 +325,16 @@ class TGM(SyncAPIResource):
         pagination: dict[str, Any] | NotGiven = NOT_GIVEN,
         order_by: list[dict[str, str]] | NotGiven = NOT_GIVEN,
     ) -> SyncPage[PnlLeaderboardItem]:
+        """Get the PnL leaderboard for a token.
+
+        Args:
+            chain: Chain identifier (e.g. ``"ethereum"``).
+            token_address: Contract address of the token.
+            date: Date range with ``"from"`` and ``"to"`` keys.
+            filters: Field-level filters to narrow results.
+            pagination: Pagination options (``page``, ``per_page``).
+            order_by: List of ordering directives.
+        """
         return self._post_page(
             "/tgm/pnl-leaderboard",
             body={
@@ -255,6 +356,14 @@ class TGM(SyncAPIResource):
         pagination: dict[str, Any] | NotGiven = NOT_GIVEN,
         order_by: list[dict[str, str]] | NotGiven = NOT_GIVEN,
     ) -> SyncPage[PerpScreenerItem]:
+        """Screen perpetual futures contracts.
+
+        Args:
+            date: Date range with ``"from"`` and ``"to"`` keys.
+            filters: Field-level filters to narrow results.
+            pagination: Pagination options (``page``, ``per_page``).
+            order_by: List of ordering directives.
+        """
         return self._post_page(
             "/perp-screener",
             body={
@@ -275,6 +384,15 @@ class TGM(SyncAPIResource):
         pagination: dict[str, Any] | NotGiven = NOT_GIVEN,
         order_by: list[dict[str, str]] | NotGiven = NOT_GIVEN,
     ) -> SyncPage[PerpPnlLeaderboardItem]:
+        """Get the perpetual futures PnL leaderboard for a token.
+
+        Args:
+            token_symbol: Token ticker symbol (e.g. ``"BTC"``).
+            date: Date range with ``"from"`` and ``"to"`` keys.
+            filters: Field-level filters to narrow results.
+            pagination: Pagination options (``page``, ``per_page``).
+            order_by: List of ordering directives.
+        """
         return self._post_page(
             "/tgm/perp-pnl-leaderboard",
             body={
@@ -296,6 +414,15 @@ class TGM(SyncAPIResource):
         pagination: dict[str, Any] | NotGiven = NOT_GIVEN,
         order_by: list[dict[str, str]] | NotGiven = NOT_GIVEN,
     ) -> SyncPage[TgmPerpPositionItem]:
+        """Get open perpetual futures positions for a token.
+
+        Args:
+            token_symbol: Token ticker symbol (e.g. ``"BTC"``).
+            label_type: Filter positions by wallet label type.
+            filters: Field-level filters to narrow results.
+            pagination: Pagination options (``page``, ``per_page``).
+            order_by: List of ordering directives.
+        """
         return self._post_page(
             "/tgm/perp-positions",
             body={
@@ -317,6 +444,15 @@ class TGM(SyncAPIResource):
         pagination: dict[str, Any] | NotGiven = NOT_GIVEN,
         order_by: list[dict[str, str]] | NotGiven = NOT_GIVEN,
     ) -> SyncPage[TgmPerpTradeItem]:
+        """Get perpetual futures trade history for a token.
+
+        Args:
+            token_symbol: Token ticker symbol (e.g. ``"BTC"``).
+            date: Date range with ``"from"`` and ``"to"`` keys.
+            filters: Field-level filters to narrow results.
+            pagination: Pagination options (``page``, ``per_page``).
+            order_by: List of ordering directives.
+        """
         return self._post_page(
             "/tgm/perp-trades",
             body={
@@ -331,6 +467,8 @@ class TGM(SyncAPIResource):
 
 
 class AsyncTGM(AsyncAPIResource):
+    """Token God Mode resource for token-level analytics (async)."""
+
     async def token_screener(
         self,
         *,
@@ -341,6 +479,17 @@ class AsyncTGM(AsyncAPIResource):
         pagination: dict[str, Any] | NotGiven = NOT_GIVEN,
         order_by: list[dict[str, str]] | NotGiven = NOT_GIVEN,
     ) -> AsyncPage[TokenScreenerItem]:
+        """Screen tokens across one or more chains.
+
+        Args:
+            chains: List of chain identifiers to screen (e.g. ``["ethereum"]``).
+            timeframe: Timeframe for the screener data (e.g. ``"24h"``).
+            date: Date range filter with ``"from"`` and ``"to"`` keys.
+            filters: Field-level filters to narrow results.
+            pagination: Pagination options (``page``, ``per_page``).
+            order_by: List of ordering directives
+                (e.g. ``[{"field": "volume", "direction": "desc"}]``).
+        """
         return await self._post_page(
             "/token-screener",
             body={
@@ -361,6 +510,13 @@ class AsyncTGM(AsyncAPIResource):
         token_address: str,
         timeframe: str,
     ) -> APIResponse[TokenInformationResponse]:
+        """Get detailed information for a specific token.
+
+        Args:
+            chain: Chain identifier (e.g. ``"ethereum"``).
+            token_address: Contract address of the token.
+            timeframe: Timeframe for the data (e.g. ``"24h"``).
+        """
         return await self._post(
             "/tgm/token-information",
             body={
@@ -379,6 +535,16 @@ class AsyncTGM(AsyncAPIResource):
         timeframe: str | NotGiven = NOT_GIVEN,
         filters: dict[str, Any] | NotGiven = NOT_GIVEN,
     ) -> AsyncPage[FlowIntelItem]:
+        """Get flow intelligence data for a token.
+
+        Shows smart money and notable wallet flows into and out of a token.
+
+        Args:
+            chain: Chain identifier (e.g. ``"ethereum"``).
+            token_address: Contract address of the token.
+            timeframe: Timeframe for the data (e.g. ``"24h"``).
+            filters: Field-level filters to narrow results.
+        """
         return await self._post_page(
             "/tgm/flow-intelligence",
             body={
@@ -401,6 +567,17 @@ class AsyncTGM(AsyncAPIResource):
         pagination: dict[str, Any] | NotGiven = NOT_GIVEN,
         order_by: list[dict[str, str]] | NotGiven = NOT_GIVEN,
     ) -> AsyncPage[HolderItem]:
+        """Get holder data for a token.
+
+        Args:
+            chain: Chain identifier (e.g. ``"ethereum"``).
+            token_address: Contract address of the token.
+            label_type: Filter holders by label type.
+            aggregate_by_entity: If ``True``, aggregate holdings by entity.
+            filters: Field-level filters to narrow results.
+            pagination: Pagination options (``page``, ``per_page``).
+            order_by: List of ordering directives.
+        """
         return await self._post_page(
             "/tgm/holders",
             body={
@@ -426,6 +603,17 @@ class AsyncTGM(AsyncAPIResource):
         pagination: dict[str, Any] | NotGiven = NOT_GIVEN,
         order_by: list[dict[str, str]] | NotGiven = NOT_GIVEN,
     ) -> AsyncPage[FlowItem]:
+        """Get token flow data within a date range.
+
+        Args:
+            chain: Chain identifier (e.g. ``"ethereum"``).
+            token_address: Contract address of the token.
+            date: Date range with ``"from"`` and ``"to"`` keys.
+            label: Filter flows by wallet label.
+            filters: Field-level filters to narrow results.
+            pagination: Pagination options (``page``, ``per_page``).
+            order_by: List of ordering directives.
+        """
         return await self._post_page(
             "/tgm/flows",
             body={
@@ -451,6 +639,17 @@ class AsyncTGM(AsyncAPIResource):
         pagination: dict[str, Any] | NotGiven = NOT_GIVEN,
         order_by: list[dict[str, str]] | NotGiven = NOT_GIVEN,
     ) -> AsyncPage[WhoBoughtSoldItem]:
+        """Get buy/sell activity for a token.
+
+        Args:
+            chain: Chain identifier (e.g. ``"ethereum"``).
+            token_address: Contract address of the token.
+            date: Date range with ``"from"`` and ``"to"`` keys.
+            buy_or_sell: Filter by ``"buy"`` or ``"sell"`` side.
+            filters: Field-level filters to narrow results.
+            pagination: Pagination options (``page``, ``per_page``).
+            order_by: List of ordering directives.
+        """
         return await self._post_page(
             "/tgm/who-bought-sold",
             body={
@@ -476,6 +675,17 @@ class AsyncTGM(AsyncAPIResource):
         pagination: dict[str, Any] | NotGiven = NOT_GIVEN,
         order_by: list[dict[str, str]] | NotGiven = NOT_GIVEN,
     ) -> AsyncPage[TgmDexTradeItem]:
+        """Get DEX trade history for a token.
+
+        Args:
+            chain: Chain identifier (e.g. ``"ethereum"``).
+            token_address: Contract address of the token.
+            date: Date range with ``"from"`` and ``"to"`` keys.
+            only_smart_money: If ``True``, only return trades from smart money wallets.
+            filters: Field-level filters to narrow results.
+            pagination: Pagination options (``page``, ``per_page``).
+            order_by: List of ordering directives.
+        """
         return await self._post_page(
             "/tgm/dex-trades",
             body={
@@ -500,6 +710,16 @@ class AsyncTGM(AsyncAPIResource):
         pagination: dict[str, Any] | NotGiven = NOT_GIVEN,
         order_by: list[dict[str, str]] | NotGiven = NOT_GIVEN,
     ) -> AsyncPage[TransferItem]:
+        """Get transfer history for a token.
+
+        Args:
+            chain: Chain identifier (e.g. ``"ethereum"``).
+            token_address: Contract address of the token.
+            date: Date range with ``"from"`` and ``"to"`` keys.
+            filters: Field-level filters to narrow results.
+            pagination: Pagination options (``page``, ``per_page``).
+            order_by: List of ordering directives.
+        """
         return await self._post_page(
             "/tgm/transfers",
             body={
@@ -520,6 +740,13 @@ class AsyncTGM(AsyncAPIResource):
         filters: dict[str, Any] | NotGiven = NOT_GIVEN,
         pagination: dict[str, Any] | NotGiven = NOT_GIVEN,
     ) -> AsyncPage[TgmDcaItem]:
+        """Get Jupiter DCA orders for a token (Solana only).
+
+        Args:
+            token_address: Token mint address.
+            filters: Field-level filters to narrow results.
+            pagination: Pagination options (``page``, ``per_page``).
+        """
         return await self._post_page(
             "/tgm/jup-dca",
             body={
@@ -540,6 +767,16 @@ class AsyncTGM(AsyncAPIResource):
         pagination: dict[str, Any] | NotGiven = NOT_GIVEN,
         order_by: list[dict[str, str]] | NotGiven = NOT_GIVEN,
     ) -> AsyncPage[PnlLeaderboardItem]:
+        """Get the PnL leaderboard for a token.
+
+        Args:
+            chain: Chain identifier (e.g. ``"ethereum"``).
+            token_address: Contract address of the token.
+            date: Date range with ``"from"`` and ``"to"`` keys.
+            filters: Field-level filters to narrow results.
+            pagination: Pagination options (``page``, ``per_page``).
+            order_by: List of ordering directives.
+        """
         return await self._post_page(
             "/tgm/pnl-leaderboard",
             body={
@@ -561,6 +798,14 @@ class AsyncTGM(AsyncAPIResource):
         pagination: dict[str, Any] | NotGiven = NOT_GIVEN,
         order_by: list[dict[str, str]] | NotGiven = NOT_GIVEN,
     ) -> AsyncPage[PerpScreenerItem]:
+        """Screen perpetual futures contracts.
+
+        Args:
+            date: Date range with ``"from"`` and ``"to"`` keys.
+            filters: Field-level filters to narrow results.
+            pagination: Pagination options (``page``, ``per_page``).
+            order_by: List of ordering directives.
+        """
         return await self._post_page(
             "/perp-screener",
             body={
@@ -581,6 +826,15 @@ class AsyncTGM(AsyncAPIResource):
         pagination: dict[str, Any] | NotGiven = NOT_GIVEN,
         order_by: list[dict[str, str]] | NotGiven = NOT_GIVEN,
     ) -> AsyncPage[PerpPnlLeaderboardItem]:
+        """Get the perpetual futures PnL leaderboard for a token.
+
+        Args:
+            token_symbol: Token ticker symbol (e.g. ``"BTC"``).
+            date: Date range with ``"from"`` and ``"to"`` keys.
+            filters: Field-level filters to narrow results.
+            pagination: Pagination options (``page``, ``per_page``).
+            order_by: List of ordering directives.
+        """
         return await self._post_page(
             "/tgm/perp-pnl-leaderboard",
             body={
@@ -602,6 +856,15 @@ class AsyncTGM(AsyncAPIResource):
         pagination: dict[str, Any] | NotGiven = NOT_GIVEN,
         order_by: list[dict[str, str]] | NotGiven = NOT_GIVEN,
     ) -> AsyncPage[TgmPerpPositionItem]:
+        """Get open perpetual futures positions for a token.
+
+        Args:
+            token_symbol: Token ticker symbol (e.g. ``"BTC"``).
+            label_type: Filter positions by wallet label type.
+            filters: Field-level filters to narrow results.
+            pagination: Pagination options (``page``, ``per_page``).
+            order_by: List of ordering directives.
+        """
         return await self._post_page(
             "/tgm/perp-positions",
             body={
@@ -623,6 +886,15 @@ class AsyncTGM(AsyncAPIResource):
         pagination: dict[str, Any] | NotGiven = NOT_GIVEN,
         order_by: list[dict[str, str]] | NotGiven = NOT_GIVEN,
     ) -> AsyncPage[TgmPerpTradeItem]:
+        """Get perpetual futures trade history for a token.
+
+        Args:
+            token_symbol: Token ticker symbol (e.g. ``"BTC"``).
+            date: Date range with ``"from"`` and ``"to"`` keys.
+            filters: Field-level filters to narrow results.
+            pagination: Pagination options (``page``, ``per_page``).
+            order_by: List of ordering directives.
+        """
         return await self._post_page(
             "/tgm/perp-trades",
             body={
