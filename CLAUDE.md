@@ -60,7 +60,7 @@ poetry run python examples/try_token_screener.py
 
 ## Conventions
 
-- Python 3.9+ compatibility (no `X | Y` unions in runtime code — use `from __future__ import annotations`)
+- Python 3.10+ compatibility (no `X | Y` unions in runtime code — use `from __future__ import annotations`)
 - Ruff for linting/formatting (line length 100)
 - Strict mypy with pydantic plugin
 - Use `timezone.utc` for UTC datetimes (not deprecated `datetime.utcnow()`)

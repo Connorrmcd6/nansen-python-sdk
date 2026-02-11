@@ -228,7 +228,7 @@ See also `basic_usage.py`, `async_usage.py`, and `error_handling.py` for general
 
 ## Requirements
 
-- Python 3.9+
+- Python 3.10+
 - httpx
 - pydantic v2
 - anyio

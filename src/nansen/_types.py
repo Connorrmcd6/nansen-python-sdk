@@ -1,8 +1,6 @@
 from __future__ import annotations
 
-from typing import Union
-
-from typing_extensions import Literal
+from typing import Literal
 
 
 class _NotGiven:
@@ -46,5 +44,5 @@ SortDirection = Literal["asc", "desc"]
 Timeframe = Literal["5m", "10m", "1h", "6h", "24h", "7d", "30d"]
 
 HeaderTypes = dict[str, str]
-QueryTypes = dict[str, Union[str, int, float, bool, None]]
+QueryTypes = dict[str, str | int | float | bool | None]
 BodyTypes = dict[str, object]
