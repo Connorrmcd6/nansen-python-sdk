@@ -7,7 +7,7 @@ Usage:
 
 from datetime import datetime, timedelta, timezone
 
-from nansen import Nansen, NansenError, APIError
+from nansen import APIError, Nansen, NansenError
 
 client = Nansen()
 

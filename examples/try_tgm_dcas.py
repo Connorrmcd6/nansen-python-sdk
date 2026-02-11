@@ -5,7 +5,7 @@ Usage:
     poetry run python examples/try_tgm_dcas.py
 """
 
-from nansen import Nansen, NansenError, APIError
+from nansen import APIError, Nansen, NansenError
 
 # JUP token on Solana
 TOKEN_ADDRESS = "JUPyiwrYJFskUPiHa7hkeR8VUtAeFoSYbKedZNsDvCN"

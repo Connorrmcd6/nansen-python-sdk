@@ -5,7 +5,7 @@ Usage:
     poetry run python examples/try_tgm_perp_positions.py
 """
 
-from nansen import Nansen, NansenError, APIError
+from nansen import APIError, Nansen, NansenError
 
 client = Nansen()
 

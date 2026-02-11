@@ -8,11 +8,6 @@ resp = client.points.leaderboard()
 
 print(f"Got {len(resp.data)} leaderboard entries\n")
 for entry in resp.data[:10]:
-    print(
-        f"  #{entry.rank}  "
-        f"tier={entry.tier}  "
-        f"points={entry.points}  "
-        f"evm={entry.evm_address}"
-    )
+    print(f"  #{entry.rank}  tier={entry.tier}  points={entry.points}  evm={entry.evm_address}")
 
 client.close()

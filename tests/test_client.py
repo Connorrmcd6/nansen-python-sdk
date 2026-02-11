@@ -1,4 +1,3 @@
-
 import pytest
 
 from nansen import AsyncNansen, Nansen

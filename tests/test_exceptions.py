@@ -75,9 +75,7 @@ class TestExceptionMapping:
             return_value=httpx.Response(
                 422,
                 json={
-                    "detail": [
-                        {"loc": ["body", "chains"], "msg": "required", "type": "missing"}
-                    ]
+                    "detail": [{"loc": ["body", "chains"], "msg": "required", "type": "missing"}]
                 },
             )
         )
@@ -122,9 +120,7 @@ class TestExceptionMapping:
     @respx.mock(base_url="https://api.nansen.ai/api/v1")
     def test_error_body_access(self, respx_mock, client):
         body = {"error": {"code": "BAD_REQUEST", "message": "Invalid params"}}
-        respx_mock.post("/smart-money/holdings").mock(
-            return_value=httpx.Response(400, json=body)
-        )
+        respx_mock.post("/smart-money/holdings").mock(return_value=httpx.Response(400, json=body))
         with pytest.raises(BadRequestError) as exc_info:
             client.smart_money.holdings(chains=["ethereum"])
         assert exc_info.value.body == body

@@ -73,9 +73,7 @@ class TestRetryBehavior:
     @respx.mock(base_url="https://api.nansen.ai/api/v1")
     def test_no_retry_on_400(self, respx_mock):
         respx_mock.post("/smart-money/holdings").mock(
-            return_value=httpx.Response(
-                400, json={"error": {"message": "Bad request"}}
-            )
+            return_value=httpx.Response(400, json={"error": {"message": "Bad request"}})
         )
         with Nansen(api_key="test-key", max_retries=2) as client:
             with pytest.raises(Exception):
@@ -86,9 +84,7 @@ class TestRetryBehavior:
     @respx.mock(base_url="https://api.nansen.ai/api/v1")
     def test_exhausted_retries_raises(self, respx_mock):
         respx_mock.post("/smart-money/holdings").mock(
-            return_value=httpx.Response(
-                500, json={"error": {"message": "Server error"}}
-            )
+            return_value=httpx.Response(500, json={"error": {"message": "Server error"}})
         )
         with Nansen(api_key="test-key", max_retries=1) as client:
             with pytest.raises(InternalServerError):

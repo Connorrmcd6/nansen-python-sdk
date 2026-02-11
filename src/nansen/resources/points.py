@@ -31,9 +31,7 @@ class Points(SyncAPIResource):
             headers={"content-type": "application/json"},
             base_url=POINTS_BASE_URL,
         )
-        items = TypeAdapter(list[PointsLeaderboardEntry]).validate_python(
-            response.json()
-        )
+        items = TypeAdapter(list[PointsLeaderboardEntry]).validate_python(response.json())
         return APIResponse(data=items, http_response=response)
 
 
@@ -55,7 +53,5 @@ class AsyncPoints(AsyncAPIResource):
             headers={"content-type": "application/json"},
             base_url=POINTS_BASE_URL,
         )
-        items = TypeAdapter(list[PointsLeaderboardEntry]).validate_python(
-            response.json()
-        )
+        items = TypeAdapter(list[PointsLeaderboardEntry]).validate_python(response.json())
         return APIResponse(data=items, http_response=response)

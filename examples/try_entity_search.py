@@ -5,7 +5,7 @@ Usage:
     poetry run python examples/try_entity_search.py
 """
 
-from nansen import Nansen, NansenError, APIError
+from nansen import APIError, Nansen, NansenError
 
 client = Nansen()
 

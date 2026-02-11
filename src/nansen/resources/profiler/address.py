@@ -175,9 +175,7 @@ class Address(SyncAPIResource):
             body=body,
             base_url=self._client.base_url.replace("/api/v1", "/api/beta"),
         )
-        items = TypeAdapter(list[AddressLabelItem]).validate_python(
-            response.json()
-        )
+        items = TypeAdapter(list[AddressLabelItem]).validate_python(response.json())
         from nansen._response import APIResponse
 
         return APIResponse(data=items, http_response=response)
@@ -327,7 +325,6 @@ class AsyncAddress(AsyncAPIResource):
         if not isinstance(pagination, NotGiven):
             body["pagination"] = pagination
 
-
         from pydantic import TypeAdapter
 
         response = await self._client._request(
@@ -336,9 +333,7 @@ class AsyncAddress(AsyncAPIResource):
             body=body,
             base_url=self._client.base_url.replace("/api/v1", "/api/beta"),
         )
-        items = TypeAdapter(list[AddressLabelItem]).validate_python(
-            response.json()
-        )
+        items = TypeAdapter(list[AddressLabelItem]).validate_python(response.json())
         from nansen._response import APIResponse
 
         return APIResponse(data=items, http_response=response)

@@ -7,7 +7,7 @@ Usage:
 
 from datetime import datetime, timedelta, timezone
 
-from nansen import Nansen, NansenError, APIError
+from nansen import APIError, Nansen, NansenError
 
 # Vitalik's address
 ADDRESS = "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"
@@ -31,7 +31,7 @@ try:
     if s:
         pnl = f"${s.realized_pnl_usd:,.2f}" if s.realized_pnl_usd else "n/a"
         win = f"{s.win_rate:.1f}%" if s.win_rate else "n/a"
-        print(f"PnL Summary:")
+        print("PnL Summary:")
         print(f"  Realized PnL: {pnl}")
         print(f"  Win rate: {win}")
         print(f"  Tokens traded: {s.traded_token_count or 0}")

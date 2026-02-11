@@ -25,19 +25,19 @@ class TestAddressCurrentBalance:
     @respx.mock(base_url="https://api.nansen.ai/api/v1")
     def test_current_balance(self, respx_mock, client):
         respx_mock.post("/profiler/address/current-balance").mock(
-            return_value=_paginated_response([
-                {
-                    "chain": "ethereum",
-                    "address": "0xabc",
-                    "token_symbol": "ETH",
-                    "token_address": "0x0",
-                    "value_usd": 10000.0,
-                }
-            ])
+            return_value=_paginated_response(
+                [
+                    {
+                        "chain": "ethereum",
+                        "address": "0xabc",
+                        "token_symbol": "ETH",
+                        "token_address": "0x0",
+                        "value_usd": 10000.0,
+                    }
+                ]
+            )
         )
-        page = client.profiler.address.current_balance(
-            chain="ethereum", address="0xabc"
-        )
+        page = client.profiler.address.current_balance(chain="ethereum", address="0xabc")
         assert page.data[0].token_symbol == "ETH"
         assert page.data[0].value_usd == 10000.0
 
@@ -46,9 +46,7 @@ class TestAddressCurrentBalance:
         route = respx_mock.post("/profiler/address/current-balance").mock(
             return_value=_paginated_response([])
         )
-        client.profiler.address.current_balance(
-            chain="ethereum", entity_name="Vitalik Buterin"
-        )
+        client.profiler.address.current_balance(chain="ethereum", entity_name="Vitalik Buterin")
         import json
 
         body = json.loads(route.calls[0].request.content)
@@ -60,16 +58,18 @@ class TestAddressHistoricalBalances:
     @respx.mock(base_url="https://api.nansen.ai/api/v1")
     def test_historical_balances(self, respx_mock, client):
         respx_mock.post("/profiler/address/historical-balances").mock(
-            return_value=_paginated_response([
-                {
-                    "block_timestamp": "2024-01-01T00:00:00Z",
-                    "token_symbol": "ETH",
-                    "token_address": "0x0",
-                    "chain": "ethereum",
-                    "token_amount": 100.0,
-                    "value_usd": 300000.0,
-                }
-            ])
+            return_value=_paginated_response(
+                [
+                    {
+                        "block_timestamp": "2024-01-01T00:00:00Z",
+                        "token_symbol": "ETH",
+                        "token_address": "0x0",
+                        "chain": "ethereum",
+                        "token_amount": 100.0,
+                        "value_usd": 300000.0,
+                    }
+                ]
+            )
         )
         page = client.profiler.address.historical_balances(
             chain="ethereum",
@@ -83,16 +83,18 @@ class TestAddressTransactions:
     @respx.mock(base_url="https://api.nansen.ai/api/v1")
     def test_transactions(self, respx_mock, client):
         respx_mock.post("/profiler/address/transactions").mock(
-            return_value=_paginated_response([
-                {
-                    "chain": "ethereum",
-                    "method": "transfer",
-                    "volume_usd": 5000.0,
-                    "block_timestamp": "2024-01-01T00:00:00Z",
-                    "transaction_hash": "0x123",
-                    "source_type": "token",
-                }
-            ])
+            return_value=_paginated_response(
+                [
+                    {
+                        "chain": "ethereum",
+                        "method": "transfer",
+                        "volume_usd": 5000.0,
+                        "block_timestamp": "2024-01-01T00:00:00Z",
+                        "transaction_hash": "0x123",
+                        "source_type": "token",
+                    }
+                ]
+            )
         )
         page = client.profiler.address.transactions(
             address="0xabc",
@@ -106,16 +108,18 @@ class TestAddressCounterparties:
     @respx.mock(base_url="https://api.nansen.ai/api/v1")
     def test_counterparties(self, respx_mock, client):
         respx_mock.post("/profiler/address/counterparties").mock(
-            return_value=_paginated_response([
-                {
-                    "counterparty_address": "0xdef",
-                    "counterparty_address_label": ["Uniswap V3"],
-                    "interaction_count": 50,
-                    "total_volume_usd": 100000.0,
-                    "volume_in_usd": 60000.0,
-                    "volume_out_usd": 40000.0,
-                }
-            ])
+            return_value=_paginated_response(
+                [
+                    {
+                        "counterparty_address": "0xdef",
+                        "counterparty_address_label": ["Uniswap V3"],
+                        "interaction_count": 50,
+                        "total_volume_usd": 100000.0,
+                        "volume_in_usd": 60000.0,
+                        "volume_out_usd": 40000.0,
+                    }
+                ]
+            )
         )
         page = client.profiler.address.counterparties(
             chain="ethereum",
@@ -129,20 +133,20 @@ class TestAddressRelatedWallets:
     @respx.mock(base_url="https://api.nansen.ai/api/v1")
     def test_related_wallets(self, respx_mock, client):
         respx_mock.post("/profiler/address/related-wallets").mock(
-            return_value=_paginated_response([
-                {
-                    "address": "0xdef",
-                    "relation": "funding",
-                    "transaction_hash": "0x123",
-                    "block_timestamp": "2024-01-01T00:00:00Z",
-                    "order": 1,
-                    "chain": "ethereum",
-                }
-            ])
+            return_value=_paginated_response(
+                [
+                    {
+                        "address": "0xdef",
+                        "relation": "funding",
+                        "transaction_hash": "0x123",
+                        "block_timestamp": "2024-01-01T00:00:00Z",
+                        "order": 1,
+                        "chain": "ethereum",
+                    }
+                ]
+            )
         )
-        page = client.profiler.address.related_wallets(
-            address="0xabc", chain="ethereum"
-        )
+        page = client.profiler.address.related_wallets(address="0xabc", chain="ethereum")
         assert page.data[0].relation == "funding"
 
 
@@ -175,14 +179,16 @@ class TestPnl:
     @respx.mock(base_url="https://api.nansen.ai/api/v1")
     def test_pnl(self, respx_mock, client):
         respx_mock.post("/profiler/address/pnl").mock(
-            return_value=_paginated_response([
-                {
-                    "token_symbol": "ETH",
-                    "token_address": "0x0",
-                    "pnl_usd_realised": 10000.0,
-                    "roi_percent_realised": 25.0,
-                }
-            ])
+            return_value=_paginated_response(
+                [
+                    {
+                        "token_symbol": "ETH",
+                        "token_address": "0x0",
+                        "pnl_usd_realised": 10000.0,
+                        "roi_percent_realised": 25.0,
+                    }
+                ]
+            )
         )
         page = client.profiler.pnl(chain="ethereum", address="0xabc")
         assert page.data[0].pnl_usd_realised == 10000.0
@@ -211,16 +217,16 @@ class TestPerpLeaderboard:
     @respx.mock(base_url="https://api.nansen.ai/api/v1")
     def test_perp_leaderboard(self, respx_mock, client):
         respx_mock.post("/perp-leaderboard").mock(
-            return_value=_paginated_response([
-                {
-                    "trader_address": "0xabc",
-                    "total_pnl": 500000.0,
-                    "roi": 150.0,
-                    "account_value": 1000000.0,
-                }
-            ])
+            return_value=_paginated_response(
+                [
+                    {
+                        "trader_address": "0xabc",
+                        "total_pnl": 500000.0,
+                        "roi": 150.0,
+                        "account_value": 1000000.0,
+                    }
+                ]
+            )
         )
-        page = client.profiler.perp_leaderboard(
-            date={"from": "2024-01-01", "to": "2024-01-31"}
-        )
+        page = client.profiler.perp_leaderboard(date={"from": "2024-01-01", "to": "2024-01-31"})
         assert page.data[0].total_pnl == 500000.0

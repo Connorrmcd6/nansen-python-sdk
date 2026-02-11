@@ -7,7 +7,7 @@ Usage:
 
 from datetime import datetime, timedelta, timezone
 
-from nansen import Nansen, NansenError, APIError
+from nansen import APIError, Nansen, NansenError
 
 # Example Hyperliquid trader address (replace with a known one)
 ADDRESS = "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"

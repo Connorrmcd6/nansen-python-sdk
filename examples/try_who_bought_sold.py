@@ -7,7 +7,7 @@ Usage:
 
 from datetime import datetime, timedelta, timezone
 
-from nansen import Nansen, NansenError, APIError
+from nansen import APIError, Nansen, NansenError
 
 # PEPE on Ethereum
 TOKEN_ADDRESS = "0x6982508145454Ce325dDbE47a25d4ec3d2311933"
