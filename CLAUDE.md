@@ -64,3 +64,34 @@ poetry run python examples/try_token_screener.py
 - Ruff for linting/formatting (line length 100)
 - Strict mypy with pydantic plugin
 - Use `timezone.utc` for UTC datetimes (not deprecated `datetime.utcnow()`)
+
+## Versioning
+
+Follow [semantic versioning](https://semver.org/): **MAJOR.MINOR.PATCH**
+
+Version is managed in `pyproject.toml` (line 3). When making changes that warrant a version bump:
+
+1. **Suggest the appropriate version bump** based on the changes made
+2. **Ask for user approval** before updating `pyproject.toml`
+
+### Version Bump Rules
+
+- **MAJOR (x.0.0)**: Breaking changes
+  - Removed or renamed public methods/parameters
+  - Changed method signatures (removed parameters, changed parameter order)
+  - Dropped Python version support
+  - Changed response model fields (removed/renamed)
+
+- **MINOR (0.x.0)**: New features (backward compatible)
+  - New endpoints/methods added
+  - New optional parameters added
+  - New response model types added
+  - New convenience features
+
+- **PATCH (0.0.x)**: Bug fixes and non-breaking changes
+  - Bug fixes
+  - Documentation improvements
+  - Internal refactoring (no public API changes)
+  - Dependency updates (non-breaking)
+
+**Note**: While in `0.x.x`, the API is considered unstable and breaking changes may occur in MINOR versions.
