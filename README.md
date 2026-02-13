@@ -5,12 +5,6 @@ Python SDK for the [Nansen](https://docs.nansen.ai/) blockchain analytics API.
 ## Installation
 
 ```bash
-poetry add nansen
-```
-
-Or with pip:
-
-```bash
 pip install nansen
 ```
 
@@ -19,7 +13,7 @@ pip install nansen
 ```bash
 git clone https://github.com/nansen-ai/nansen-python-sdk.git
 cd nansen-python-sdk
-poetry install
+uv sync --all-extras --dev
 ```
 
 ## Quick Start
@@ -183,9 +177,9 @@ The `examples/` directory contains runnable scripts for every SDK endpoint. Each
 
 ```bash
 export NANSEN_API_KEY="your-key"
-poetry run python examples/try_token_screener.py
-poetry run python examples/try_smart_money_netflow.py
-poetry run python examples/try_address_balance.py
+uv run python examples/try_token_screener.py
+uv run python examples/try_smart_money_netflow.py
+uv run python examples/try_address_balance.py
 # ... etc
 ```
 

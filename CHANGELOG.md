@@ -7,10 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.1] - 2026-02-13
+
 ### Added
 - Comprehensive docstrings for all public methods
 
 ### Changed
+- Migrated from Poetry to uv for dependency management and project tooling
+- Switched build backend from poetry-core to hatchling (PEP 621)
+- Replaced pre-commit with prek as the hook runner
+- Expanded pre-commit hooks: added codespell, yamllint, yamlfmt, trailing-whitespace, end-of-file-fixer, check-merge-conflict, check-toml, check-yaml, check-added-large-files
+- Added `"B"` (flake8-bugbear) to ruff lint rules
+- Restructured CI from single workflow to reusable workflow pattern (on-pr, on-merge, job-prek, job-test)
+- CI now uses `astral-sh/setup-uv@v5` instead of `snok/install-poetry@v1`
 - Improved documentation formatting for `order_by` parameters
 
 ## [0.1.0] - 2024-02-09
@@ -38,8 +47,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Development
 - Ruff for linting and formatting
 - Strict mypy type checking
-- Poetry for dependency management
+- uv for dependency management
 - httpx for HTTP client (sync + async)
 
-[Unreleased]: https://github.com/nansen-ai/nansen-python-sdk/compare/v0.1.0...HEAD
+[Unreleased]: https://github.com/nansen-ai/nansen-python-sdk/compare/v0.1.1...HEAD
+[0.1.1]: https://github.com/nansen-ai/nansen-python-sdk/compare/v0.1.0...v0.1.1
 [0.1.0]: https://github.com/nansen-ai/nansen-python-sdk/releases/tag/v0.1.0

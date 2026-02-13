@@ -12,25 +12,25 @@ Thank you for considering contributing to the Nansen Python SDK! This document p
 
 2. **Install dependencies**
    ```bash
-   poetry install
+   uv sync --all-extras --dev
    ```
 
 3. **Set up pre-commit hooks**
    ```bash
-   poetry run pre-commit install
+   uv run prek install
    ```
 
 ## Running Tests
 
 ```bash
 # Run all tests
-poetry run pytest
+uv run pytest
 
 # Run with coverage
-poetry run pytest --cov=src/nansen
+uv run pytest --cov=src/nansen
 
 # Run specific test file
-poetry run pytest tests/test_resources/test_tgm.py
+uv run pytest tests/test_resources/test_tgm.py
 ```
 
 ## Code Quality
@@ -39,16 +39,19 @@ Before submitting a PR, ensure your code passes all checks:
 
 ```bash
 # Lint with Ruff
-poetry run ruff check .
+uv run ruff check .
 
 # Format with Ruff
-poetry run ruff format .
+uv run ruff format .
 
 # Type check with mypy
-poetry run mypy src/
+uv run mypy src/
+
+# Run all pre-commit hooks
+uv run prek run --all-files
 ```
 
-Pre-commit hooks will automatically run these checks, but you can run them manually as well.
+Pre-commit hooks (via prek) will automatically run these checks, but you can run them manually as well.
 
 ## Code Style
 
@@ -122,7 +125,7 @@ If you've added a new endpoint, test it manually:
 
 ```bash
 export NANSEN_API_KEY="your-key"
-poetry run python examples/try_your_endpoint.py
+uv run python examples/try_your_endpoint.py
 ```
 
 ## Questions?

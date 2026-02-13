@@ -35,10 +35,11 @@ tests/              — pytest test suite with respx mocks
 ## Commands
 
 ```bash
-poetry install              # Install dependencies
-poetry run pytest           # Run all tests
-poetry run ruff check .     # Lint
-poetry run mypy src/        # Type check
+uv sync --all-extras --dev  # Install dependencies
+uv run pytest               # Run all tests
+uv run ruff check .         # Lint
+uv run mypy src/            # Type check
+uv run prek run --all-files # Run all pre-commit hooks
 ```
 
 ## Adding a New Endpoint
@@ -55,7 +56,7 @@ The `examples/` directory has a runnable `try_*.py` script for every SDK endpoin
 
 ```bash
 export NANSEN_API_KEY="your-key"
-poetry run python examples/try_token_screener.py
+uv run python examples/try_token_screener.py
 ```
 
 ## Conventions
@@ -69,7 +70,7 @@ poetry run python examples/try_token_screener.py
 
 Follow [semantic versioning](https://semver.org/): **MAJOR.MINOR.PATCH**
 
-Version is managed in `pyproject.toml` (line 3). When making changes that warrant a version bump:
+Version is managed in `pyproject.toml`. When making changes that warrant a version bump:
 
 1. **Suggest the appropriate version bump** based on the changes made
 2. **Ask for user approval** before updating `pyproject.toml`

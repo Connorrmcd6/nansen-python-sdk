@@ -2,7 +2,7 @@ import httpx
 import pytest
 import respx
 
-from nansen import InternalServerError, Nansen
+from nansen import BadRequestError, InternalServerError, Nansen
 from nansen._utils._retry import calculate_retry_delay
 
 
@@ -76,7 +76,7 @@ class TestRetryBehavior:
             return_value=httpx.Response(400, json={"error": {"message": "Bad request"}})
         )
         with Nansen(api_key="test-key", max_retries=2) as client:
-            with pytest.raises(Exception):
+            with pytest.raises(BadRequestError):
                 client.smart_money.holdings(chains=["ethereum"])
         # Only 1 call made (no retries for 400)
         assert respx_mock.calls.call_count == 1
